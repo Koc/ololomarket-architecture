@@ -37,7 +37,7 @@ class Product
     private $category;
 
     /**
-     * @var Family
+     * @var Family|null
      */
     private $family;
 
@@ -89,7 +89,7 @@ class Product
         return $this->category;
     }
 
-    public function getFamily(): Family
+    public function getFamily(): ?Family
     {
         return $this->family;
     }

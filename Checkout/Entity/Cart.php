@@ -19,15 +19,16 @@ class Cart
     /**
      * @var Collection|Purchase[]
      */
-    private $items;
+    private $purchases;
 
     /**
-     * @param Purchase[]|Collection $items
+     * @param Purchase[] $purchases
      */
-    public function __construct(int $id, $items)
+    public function __construct(int $id, array $purchases)
     {
         $this->id = $id;
-        $this->items = $items;
+        //FIXME: array collection
+        $this->purchases = $purchases;
     }
 
     public function addItem(OfferId $offerId, string $name, string $sku, float $price, int $qty)
@@ -38,5 +39,18 @@ class Cart
     public function removeItem(Purchase $item)
     {
         // ...
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Purchase[]
+     */
+    public function getPurchases(): array
+    {
+        return $this->purchases->getValues();
     }
 }

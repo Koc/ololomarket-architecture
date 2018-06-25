@@ -24,17 +24,11 @@ abstract class Attribute
      */
     private $name;
 
-    /**
-     * @var AttributeType
-     */
-    private $type;
-
-    protected function __construct(int $id, string $code, string $name, AttributeType $type)
+    protected function __construct(int $id, string $code, string $name)
     {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
-        $this->type = $type;
     }
 
     public function getId(): int
@@ -52,8 +46,5 @@ abstract class Attribute
         return $this->name;
     }
 
-    public function getType(): AttributeType
-    {
-        return $this->type;
-    }
+    abstract public function getType(): AttributeType;
 }

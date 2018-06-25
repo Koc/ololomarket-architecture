@@ -10,8 +10,8 @@ use Ololomarket\Domain\Catalog\ValueObject\AttributeType;
  */
 class IntAttribute extends Attribute
 {
-    public function __construct(int $id, string $code, string $name)
+    public function getType(): AttributeType
     {
-        parent::__construct($id, $code, $name, new AttributeType(AttributeType::TYPE_INT));
+        return new AttributeType(AttributeType::TYPE_INT);
     }
 }

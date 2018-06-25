@@ -2,6 +2,7 @@
 
 namespace Ololomarket\Domain\Analytics\Entity;
 
+use Ololomarket\Domain\Catalog\ValueObject\ShopOrderStatus;
 use Ololomarket\Domain\Checkout\ValueObject\ShopOrderId;
 
 /**
@@ -12,9 +13,16 @@ class ShopOrder
     /**
      * @var ShopOrderId
      */
-    private $shopOrderId;
+    private $id;
 
+    /**
+     * @var ShopOrderStatus
+     */
     private $status;
 
-    private $amount;
+    /**
+     * //FIXME: use money
+     * @var int
+     */
+    private $subtotal;
 }

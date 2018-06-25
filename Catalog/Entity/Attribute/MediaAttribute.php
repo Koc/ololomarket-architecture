@@ -10,8 +10,8 @@ use Ololomarket\Domain\Catalog\ValueObject\AttributeType;
  */
 class MediaAttribute extends Attribute
 {
-    public function __construct(int $id, string $name)
+    public function getType(): AttributeType
     {
-        parent::__construct($id, $name, new AttributeType(AttributeType::TYPE_MEDIA));
+        return new AttributeType(AttributeType::TYPE_MEDIA);
     }
 }

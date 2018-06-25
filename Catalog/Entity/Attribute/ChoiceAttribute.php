@@ -20,11 +20,13 @@ class ChoiceAttribute extends Attribute
     /**
      * @var Collection|ChoiceOption[]
      */
-    private $choices;
+    private $options;
 
-    public function __construct(int $id, string $code, string $name, array $choices)
+    public function __construct(int $id, string $code, string $name, array $options)
     {
-        parent::__construct($id, $code, $name, new AttributeType(AttributeType::TYPE_CHOICE));
+        parent::__construct($id, $code, $name);
+
+        $this->options = $options;
     }
 
     public function isMultiple(): bool
@@ -37,6 +39,11 @@ class ChoiceAttribute extends Attribute
      */
     public function getOptions(): array
     {
-        return $this->choices->getValues();
+        return $this->options->getValues();
+    }
+
+    public function getType(): AttributeType
+    {
+        return new AttributeType(AttributeType::TYPE_CHOICE);
     }
 }

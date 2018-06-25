@@ -19,10 +19,16 @@ class ChoiceOption
      */
     private $attribute;
 
-    public function __construct(int $id, ChoiceAttribute $attribute)
+    /**
+     * @var string
+     */
+    private $label;
+
+    public function __construct(ChoiceAttribute $attribute, int $id, string $label)
     {
         $this->id = $id;
         $this->attribute = $attribute;
+        $this->label = $label;
     }
 
     public function getId(): int
@@ -33,5 +39,10 @@ class ChoiceOption
     public function getAttribute(): ChoiceAttribute
     {
         return $this->attribute;
+    }
+
+    public function getLabel(): string
+    {
+        return $this->label;
     }
 }

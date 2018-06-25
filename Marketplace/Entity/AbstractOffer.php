@@ -25,7 +25,10 @@ abstract class AbstractOffer
     protected $available;
 
     /**
+     * //FIXME: money type
      * @var float
      */
     protected $price;
+
+    //FIXME: add more fields;
 }

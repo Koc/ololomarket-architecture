@@ -24,4 +24,33 @@ class AttributeSet
      * @var Collection|AttributesGroup[]
      */
     private $groups;
+
+    /**
+     * @param AttributesGroup[] $groups
+     */
+    public function __construct(int $id, string $name, array $groups)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        //FIXME: array collection
+        $this->groups = $groups;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return AttributesGroup[]
+     */
+    public function getGroups(): array
+    {
+        return $this->groups->getValues();
+    }
 }
