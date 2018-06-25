@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
-use Ololomarket\Domain\Catalog\Entity\Attribute;
+use Ololomarket\Domain\Catalog\Entity\Attribute\IntAttribute;
 use Ololomarket\Domain\Catalog\Entity\Product;
 use Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
@@ -16,7 +16,7 @@ class IntValue extends AttributeValue
      */
     private $integerValue;
 
-    public function __construct(Product $product, Attribute $attribute, int $value)
+    public function __construct(Product $product, IntAttribute $attribute, int $value)
     {
         parent::__construct($product, $attribute, $value);
     }

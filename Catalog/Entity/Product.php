@@ -8,6 +8,7 @@ use Ololomarket\Domain\Catalog\Entity\Attribute\IntAttribute;
 use Ololomarket\Domain\Catalog\Entity\Attribute\MediaAttribute;
 use Ololomarket\Domain\Catalog\Entity\Attribute\StringAttribute;
 use Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
+use Ololomarket\Domain\Catalog\Entity\Product\Family;
 use Ololomarket\Domain\Core\Collection;
 
 /**
@@ -36,6 +37,11 @@ class Product
     private $category;
 
     /**
+     * @var Family
+     */
+    private $family;
+
+    /**
      * @var Collection|AttributeValue[]
      */
     private $attributeValues;
@@ -43,8 +49,14 @@ class Product
     /**
      * @param AttributeValue[] $attributeValues
      */
-    public function __construct(int $id, string $name, string $sku, Category $category, array $attributeValues)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        string $sku,
+        Category $category,
+        ?Family $family,
+        array $attributeValues
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->sku = $sku;
@@ -75,6 +87,11 @@ class Product
     public function getCategory(): Category
     {
         return $this->category;
+    }
+
+    public function getFamily(): Family
+    {
+        return $this->family;
     }
 
     /**

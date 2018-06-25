@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
-use Ololomarket\Domain\Catalog\Entity\Attribute;
+use Ololomarket\Domain\Catalog\Entity\Attribute\BoolAttribute;
 use Ololomarket\Domain\Catalog\Entity\Product;
 use Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
@@ -16,7 +16,7 @@ class BoolValue extends AttributeValue
      */
     private $boolValue;
 
-    public function __construct(Product $product, Attribute $attribute, bool $value)
+    public function __construct(Product $product, BoolAttribute $attribute, bool $value)
     {
         parent::__construct($product, $attribute, $value);
     }

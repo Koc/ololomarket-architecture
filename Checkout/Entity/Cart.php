@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Checkout\Entity;
 
-use Ololomarket\Domain\Checkout\Entity\Cart\Item;
+use Ololomarket\Domain\Checkout\Entity\Cart\Purchase;
 use Ololomarket\Domain\Core\Collection;
 use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
 
@@ -17,12 +17,12 @@ class Cart
     private $id;
 
     /**
-     * @var Collection|Item[]
+     * @var Collection|Purchase[]
      */
     private $items;
 
     /**
-     * @param Item[]|Collection $items
+     * @param Purchase[]|Collection $items
      */
     public function __construct(int $id, $items)
     {
@@ -35,7 +35,7 @@ class Cart
         // ...
     }
 
-    public function removeItem(Item $item)
+    public function removeItem(Purchase $item)
     {
         // ...
     }

@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
-use Ololomarket\Domain\Catalog\Entity\Attribute;
+use Ololomarket\Domain\Catalog\Entity\Attribute\StringAttribute;
 use Ololomarket\Domain\Catalog\Entity\Product;
 use Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
@@ -16,7 +16,7 @@ class StringValue extends AttributeValue
      */
     private $stringValue;
 
-    public function __construct(Product $product, Attribute $attribute, string $value)
+    public function __construct(Product $product, StringAttribute $attribute, string $value)
     {
         parent::__construct($product, $attribute, $value);
     }

@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
-use Ololomarket\Domain\Catalog\Entity\Attribute;
+use Ololomarket\Domain\Catalog\Entity\Attribute\DecimalAttribute;
 use Ololomarket\Domain\Catalog\Entity\Product;
 use Ololomarket\Domain\Catalog\Entity\Product\AttributeValue;
 
@@ -16,7 +16,7 @@ class DecimalValue extends AttributeValue
      */
     private $decimalValue;
 
-    public function __construct(Product $product, Attribute $attribute, float $value)
+    public function __construct(Product $product, DecimalAttribute $attribute, float $value)
     {
         parent::__construct($product, $attribute, $value);
     }

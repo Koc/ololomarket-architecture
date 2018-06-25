@@ -2,7 +2,7 @@
 
 namespace Ololomarket\Domain\Checkout\Entity;
 
-use Ololomarket\Domain\Checkout\Entity\Order\Item;
+use Ololomarket\Domain\Checkout\Entity\Order\Merchandise;
 use Ololomarket\Domain\Checkout\ValueObject\ShopOrderId;
 use Ololomarket\Domain\Core\Collection;
 use Ololomarket\Domain\Marketplace\ValueObject\CompanyId;
@@ -23,7 +23,7 @@ class ShopOrder
     private $shopId;
 
     /**
-     * @var Collection|Item[]
+     * @var Collection|Merchandise[]
      */
     private $items;
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Ololomarket\Domain\Checkout\Entity\Cart;
+namespace Ololomarket\Domain\Checkout\Entity\Order;
 
-use Ololomarket\Domain\Checkout\Entity\Cart;
+use Ololomarket\Domain\Checkout\Entity\Order;
 use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
 
 /**
  * @author Konstantin Myakshin <molodchick@gmail.com>
  */
-class Item
+class Merchandise
 {
     /**
      * @var int
@@ -16,9 +16,9 @@ class Item
     private $id;
 
     /**
-     * @var Cart
+     * @var Order
      */
-    private $cart;
+    private $order;
 
     /**
      * @var OfferId
@@ -47,7 +47,7 @@ class Item
 
     public function __construct(
         int $id,
-        Cart $cart,
+        Order $order,
         OfferId $offerId,
         string $name,
         string $sku,
@@ -55,8 +55,9 @@ class Item
         int $qty
     ) {
         $this->id = $id;
-        $this->cart = $cart;
+        $this->order = $order;
         $this->offerId = $offerId;
+        //TODO: выделить orderId, name, sku, price, qty в отдельный value object?
         $this->name = $name;
         $this->sku = $sku;
         $this->price = $price;
@@ -68,9 +69,9 @@ class Item
         return $this->id;
     }
 
-    public function getCart(): Cart
+    public function getOrder(): Order
     {
-        return $this->cart;
+        return $this->order;
     }
 
     public function getOfferId(): OfferId
