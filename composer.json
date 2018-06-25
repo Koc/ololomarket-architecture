@@ -1,0 +1,15 @@
+{
+    "name": "koc/ololomarket",
+    "description": "Ololomarket Domain",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "doctrine/collections": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ololomarket\\Domain\\": ""
+        }
+    }
+}
