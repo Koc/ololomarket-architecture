@@ -2,8 +2,11 @@
 
 namespace Ololomarket\Domain\PriceAggregator\Entity;
 
+use Ololomarket\Domain\Catalog\ValueObject\ProductId;
 use Ololomarket\Domain\Core\Collection;
+use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\AttributeValue;
+use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\LinkageBlacklistedProduct;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\Photo;
 use Ololomarket\Domain\PriceAggregator\ValueObject\PriceItemId;
 
@@ -47,6 +50,26 @@ class PriceItem
      */
     private $photos;
 
+    /**
+     * @var \DateTimeInterface
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeInterface
+     */
+    private $updatedAt;
+
+    /**
+     * @var OfferId
+     */
+    private $linkedOfferId;
+
+    /**
+     * @var Collection|LinkageBlacklistedProduct[]
+     */
+    private $linkageBlacklistedProducts;
+
     public function __construct(
         PriceItemId $id,
         Shop $shop,
@@ -61,6 +84,20 @@ class PriceItem
         $this->shopProductId = $shopProductId;
         $this->attributeValues = $attributeValues;
         $this->photos = $photos;
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable('0000-00-00');
+        //FIXME: array collection
+        $this->linkageBlacklistedProducts = [];
+    }
+
+    public function addProductIdToLinkageBlacklist(ProductId $productId): void
+    {
+        $this->linkageBlacklistedProducts->add(new LinkageBlacklistedProduct($this, $productId));
+    }
+
+    public function linkWithOfferId(OfferId $offerId): void
+    {
+        $this->linkedOfferId = $offerId;
     }
 
     public function getId(): PriceItemId
@@ -102,5 +139,33 @@ class PriceItem
     public function getPhotos()
     {
         return $this->photos->getValues();
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function getLinkedOfferId(): OfferId
+    {
+        return $this->linkedOfferId;
+    }
+
+    /**
+     * @return ProductId[]
+     */
+    public function getProductIdsInLinkageBlacklist(): array
+    {
+        return $this->linkageBlacklistedProducts->getValues();
+    }
+
+    public function hasProductIdsInLinkageBlacklist(): bool
+    {
+        return count($this->getProductIdsInLinkageBlacklist()) > 0;
     }
 }

@@ -13,4 +13,6 @@ class Offer extends AbstractOffer
      * @var PriceItemId
      */
     private $priceItemId;
+
+    //FIXME: implement
 }
