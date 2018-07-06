@@ -2,6 +2,7 @@
 
 namespace Ololomarket\Domain\Marketplace\Entity;
 
+use Ololomarket\Domain\Marketplace\Command\ActualizeOffer;
 use Ololomarket\Domain\Marketplace\ValueObject\BlockReason;
 use Ololomarket\Domain\Marketplace\ValueObject\Money;
 use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
@@ -23,14 +24,24 @@ abstract class AbstractOffer
     protected $company;
 
     /**
+     * @var ProductCard|null
+     */
+    protected $productCard;
+
+    /**
      * @var bool
      */
-    protected $available;
+    protected $isInStock;
 
     /**
      * @var Money
      */
     protected $price;
+
+    /**
+     * @var Money|null
+     */
+    protected $specialPrice;
 
     /**
      * @var \DateTimeInterface
@@ -40,7 +51,7 @@ abstract class AbstractOffer
     /**
      * @var \DateTimeInterface
      */
-    protected $updatedAt;
+    protected $actualizedAt;
 
     /**
      * @var BlockReason|null
@@ -52,31 +63,76 @@ abstract class AbstractOffer
      */
     protected $blockedUntil;
 
-    public function __construct(OfferId $id, Company $company, bool $available, Money $price)
-    {
+    protected function __construct(
+        OfferId $id,
+        Company $company,
+        ActualizeOffer $actualizeOffer
+    ) {
         $this->id = $id;
         $this->company = $company;
-        $this->available = $available;
-        $this->price = $price;
+        $this->actualize($actualizeOffer);
         $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->actualizedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * @internal
+     *
+     * @see ProductCard::blockOffer()
+     */
     public function block(BlockReason $blockReason): void
     {
         $this->blockReason = $blockReason;
         $this->blockedUntil = $blockReason->getUnlockDate();
     }
 
-    public function removeBlock(): void
+    /**
+     * @internal
+     *
+     * @see ProductCard::unblockOffer()
+     */
+    public function unblock(): void
     {
         $this->blockReason = null;
         $this->blockedUntil = null;
     }
 
+    /**
+     * @internal
+     *
+     * @see ProductCard::actualizeOffer()
+     */
+    public function actualize(ActualizeOffer $dto): void
+    {
+        $this->price = $dto->getPrice();
+        $this->specialPrice = $dto->getSpecialPrice();
+        $this->isInStock = $dto->isInStock();
+        $this->actualizedAt = new \DateTimeImmutable();
+    }
+
+    /**
+     * @internal
+     *
+     * @see ProductCard::linkOffer()
+     */
+    public function linkToProductCard(ProductCard $productCard): void
+    {
+        $this->productCard = $productCard;
+    }
+
+    /**
+     * @internal
+     *
+     * @see ProductCard::unlinkOffer()
+     */
+    public function unlinkFromProduct(): void
+    {
+        $this->productCard = null;
+    }
+
     public function allowedForPurchase(): bool
     {
-        return $this->available && new \DateTime() > $this->blockedUntil;
+        return $this->isInStock && new \DateTime() > $this->blockedUntil;
     }
 
     public function getId(): OfferId
@@ -89,9 +145,19 @@ abstract class AbstractOffer
         return $this->company;
     }
 
-    public function isAvailable(): bool
+    public function getProductCard(): ?ProductCard
     {
-        return $this->available;
+        return $this->productCard;
+    }
+
+    public function isLinked(): bool
+    {
+        return $this->productCard instanceof ProductCard;
+    }
+
+    public function isIsInStock(): bool
+    {
+        return $this->isInStock;
     }
 
     public function getPrice(): Money
@@ -99,14 +165,19 @@ abstract class AbstractOffer
         return $this->price;
     }
 
+    public function getSpecialPrice(): ?Money
+    {
+        return $this->specialPrice;
+    }
+
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTimeInterface
+    public function getActualizedAt(): \DateTimeInterface
     {
-        return $this->updatedAt;
+        return $this->actualizedAt;
     }
 
     public function getBlockReason(): ?BlockReason

@@ -2,6 +2,8 @@
 
 namespace Ololomarket\Domain\Marketplace\Entity;
 
+use Ololomarket\Domain\Marketplace\Command\CreateOffer;
+use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
 use Ololomarket\Domain\PriceAggregator\ValueObject\PriceItemId;
 
 /**
@@ -14,5 +16,11 @@ class Offer extends AbstractOffer
      */
     private $priceItemId;
 
-    //FIXME: implement
+    public static function create(OfferId $id, CreateOffer $dto): self
+    {
+        $offer = new self($id, $dto->getCompany(), $dto->getActualizeOffer());
+        $offer->priceItemId = $dto->getPriceItemId();
+
+        return $offer;
+    }
 }

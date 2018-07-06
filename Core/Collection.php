@@ -7,9 +7,11 @@ namespace Ololomarket\Domain\Core;
  */
 interface Collection
 {
-    public function add($object);
+    public function add($element): void;
 
-    public function has($key): bool;
+    public function contains($element): bool;
 
-    public function getValues();
+    public function removeElement($element): void;
+
+    public function getValues(): array;
 }

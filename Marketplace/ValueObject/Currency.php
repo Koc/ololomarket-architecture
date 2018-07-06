@@ -7,7 +7,7 @@ namespace Ololomarket\Domain\Marketplace\ValueObject;
  */
 class Currency
 {
-    public const UAH = 804;
+    public const UAH = 980;
 
     public const ALL_CURRENCIES = [
         self::UAH,

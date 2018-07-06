@@ -9,6 +9,7 @@ use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\AttributeValue;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\LinkageBlacklistedProduct;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\Photo;
 use Ololomarket\Domain\PriceAggregator\ValueObject\PriceItemId;
+use Ololomarket\Domain\PriceAggregator\ValueObject\ShopProductId;
 
 /**
  * @author Konstantin Myakshin <molodchick@gmail.com>
@@ -26,7 +27,7 @@ class PriceItem
     private $shop;
 
     /**
-     * @var string
+     * @var ShopProductId
      */
     private $shopProductId;
 
@@ -73,7 +74,7 @@ class PriceItem
     public function __construct(
         PriceItemId $id,
         Shop $shop,
-        string $shopProductId,
+        ShopProductId $shopProductId,
         string $srcUrl,
         Category $category,
         array $attributeValues,
@@ -110,7 +111,7 @@ class PriceItem
         return $this->shop;
     }
 
-    public function getShopProductId(): string
+    public function getShopProductId(): ShopProductId
     {
         return $this->shopProductId;
     }
