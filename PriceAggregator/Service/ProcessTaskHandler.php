@@ -4,21 +4,22 @@ namespace Ololomarket\Domain\PriceAggregator\Service;
 
 class ProcessTaskHandler
 {
-    private $download;
-
-    private $detectFormat;
     private $unitOfWork;
 
-    public function __construct(UnitOfWork $unitOfWork, callable $download, callable $detectFormat)
+    private $downloadTask;
+
+    private $detectFormat;
+
+    public function __construct(UnitOfWork $unitOfWork, DownloadTask $downloadTask, DetectFormat $detectFormat)
     {
-        $this->download = $download;
+        $this->downloadTask = $downloadTask;
         $this->detectFormat = $detectFormat;
         $this->unitOfWork = $unitOfWork;
     }
 
     public function __invoke(int $taskId)
     {
-        $this->unitOfWork->execute($this->download, $taskId);
+        $this->unitOfWork->execute($this->downloadTask, $taskId);
         $this->unitOfWork->execute($this->detectFormat, $taskId);
     }
 }
