@@ -11,6 +11,10 @@ interface Collection
 
     public function contains($element): bool;
 
+    public function containsKey($key): bool;
+
+    public function get($key);
+
     public function removeElement($element): void;
 
     public function getValues(): array;

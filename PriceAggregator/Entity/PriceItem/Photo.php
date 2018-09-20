@@ -24,9 +24,8 @@ class Photo
      */
     private $url;
 
-    public function __construct(int $id, PriceItem $priceItem, string $url)
+    public function __construct(PriceItem $priceItem, string $url)
     {
-        $this->id = $id;
         $this->priceItem = $priceItem;
         $this->url = $url;
     }

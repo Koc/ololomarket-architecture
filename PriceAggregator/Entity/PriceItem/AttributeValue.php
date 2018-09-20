@@ -35,9 +35,8 @@ class AttributeValue
      */
     private $unit;
 
-    public function __construct(int $id, PriceItem $priceItem, string $attributeName, string $value, ?Unit $unit)
+    public function __construct(PriceItem $priceItem, string $attributeName, string $value, ?Unit $unit)
     {
-        $this->id = $id;
         $this->priceItem = $priceItem;
         $this->attributeName = $attributeName;
         $this->value = $value;

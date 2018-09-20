@@ -5,7 +5,8 @@ namespace Ololomarket\Domain\PriceAggregator\Entity;
 use Ololomarket\Domain\Catalog\ValueObject\ProductId;
 use Ololomarket\Domain\Core\Collection;
 use Ololomarket\Domain\Marketplace\ValueObject\OfferId;
-use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\AttributeValue;
+use Ololomarket\Domain\PriceAggregator\Command\SavePriceItem;
+use Ololomarket\Domain\PriceAggregator\Entity\PricaeItem\AttributeValue;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\LinkageBlacklistedProduct;
 use Ololomarket\Domain\PriceAggregator\Entity\PriceItem\Photo;
 use Ololomarket\Domain\PriceAggregator\ValueObject\PriceItemId;
@@ -75,20 +76,26 @@ class PriceItem
         PriceItemId $id,
         Shop $shop,
         ShopProductId $shopProductId,
-        string $srcUrl,
-        Category $category,
-        array $attributeValues,
-        array $photos
+        SavePriceItem $savePriceItem
     ) {
         $this->id = $id;
         $this->shop = $shop;
         $this->shopProductId = $shopProductId;
-        $this->attributeValues = $attributeValues;
-        $this->photos = $photos;
+
+        $this->savePriceItem($savePriceItem);
+
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable('0000-00-00');
         //FIXME: array collection
         $this->linkageBlacklistedProducts = [];
+    }
+
+    public function savePriceItem(SavePriceItem $dto): void
+    {
+        $this->srcUrl = $dto->getSrcUrl();
+        $this->category = $dto->getCategory();
+        $this->attributeValues = $dto->getAttributeValues();
+        $this->photos = $dto->getPhotos();
     }
 
     public function addProductIdToLinkageBlacklist(ProductId $productId): void
@@ -129,7 +136,7 @@ class PriceItem
     /**
      * @return AttributeValue[]
      */
-    public function getAttributeValues()
+    public function getAttributeValues(): array
     {
         return $this->attributeValues->getValues();
     }
@@ -137,7 +144,7 @@ class PriceItem
     /**
      * @return Photo[]
      */
-    public function getPhotos()
+    public function getPhotos(): array
     {
         return $this->photos->getValues();
     }
